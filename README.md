@@ -1,14 +1,14 @@
 # PreferenceWerewolfDiscord
 ## これは何？
-性癖人狼というゲームを考えたので，Discord上で遊べるようにしました．\\
-ルールは簡単，皆で性癖を出し合って，ランダムに選ばれた性癖について皆で語ります．\\
+性癖人狼というゲームを考えたので，Discord上で遊べるようにしました．  
+ルールは簡単，皆で性癖を出し合って，ランダムに選ばれた性癖について皆で語ります．  
 性癖がバレないように上手く誤魔化したり，逆に知ったかぶりしたり自由に議論しながら誰の性癖か当てましょう！
 ## 準備
 1. コンソール上で`pip install discord.py`を実行
 2. [Discord公式](https://discordpy.readthedocs.io/ja/latest/discord.html#discord-intro)に従ってbotを作成し，トークンをゲット
 3. `main.py`の最後の行の`""`の中にトークンを記載
 ## botの実行
-コンソール上で`python main.py`を実行\\
+コンソール上で`python main.py`を実行  
 (Herokuなどでbotを常時起動することもできます)
 ## 遊び方
 1. ゲーム用のチャンネルで`/game /start`を誰かが送信
