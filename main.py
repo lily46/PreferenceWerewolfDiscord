@@ -27,7 +27,7 @@ async def on_message(message):
 
     # start inference
     if message.content.startswith('/game /discuss'):
-        wolf = random.choice(registered_dict.items())
+        wolf = random.choice(list(registered_dict.items()))
         word = wolf[1]
         people_str = ' '.join(registered_dict.keys())
 
