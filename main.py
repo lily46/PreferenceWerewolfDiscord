@@ -61,15 +61,100 @@ async def on_message(message):
 
     # Register Word
     if message.content.startswith('/game /register '):
-        if client.user != message.author:
-            split_word = message.content.split(' ')
-            if len(split_word) < 3:
-                await message.channel.send('もう一度試してみてもふ！　半角スペース使ってるか確認してもふ')
-            else:
-                added_word = split_word[2]
-                author_name = message.author.name
-                registered_dict[author_name] = added_word
-                await message.channel.send(f'ワードを受け付けたもふ！:{author_name}:{added_word}')
+        await register_word(message)
+
+    # Execution
+    if message.content.startswith('/game /execution '):
+        await execute(message)
+
+    # Bite
+    if message.content.startswith('/game /bite '):
+        await bite_person(message)
+
+
+async def register_word(message):
+    """
+    入力されたワードを登録する
+    :param message:
+    :return:
+    """
+    global registered_dict
+    if client.user == message.author:
+        return
+
+    split_word = message.content.split(' ')
+    if len(split_word) < 3:
+        await message.channel.send('もう一度試してみてもふ！　半角スペース使ってるか確認してもふ')
+        return
+
+    added_word = split_word[2]
+    author_name = message.author.name
+    registered_dict[author_name] = added_word
+    await message.channel.send(f'ワードを受け付けたもふ！:{author_name}:{added_word}')
+
+
+async def display_survivor(message):
+    """
+    生存者を表示する
+    :param message:
+    :return:
+    """
+    global registered_dict
+    num = len(registered_dict)
+    people_str = ' '.join(registered_dict.keys())
+    await message.channel.send(f'現在の生存者は{num}人({people_str})もふ')
+
+
+async def execute(message):
+    """
+    入力された名前の人を吊る
+    :param message:
+    :return:
+    """
+    global registered_dict
+
+    if client.user == message.author:
+        return
+
+    split_word = message.content.split(' ')
+    if len(split_word) < 3:
+        await message.channel.send('もう一度試してみてもふ！　半角スペース使ってるか確認してもふ')
+        return
+
+    name = split_word[2]
+    if name not in registered_dict.keys():
+        await message.channel.send('その人はもういないもふ')
+        return
+
+    await message.channel.send(f'{name}さんが吊られてしまったもふ…')
+    registered_dict.pop(name)
+    await display_survivor(message)
+
+
+async def bite_person(message):
+    """
+    入力された名前の人を噛む
+    :param message:
+    :return:
+    """
+    global registered_dict
+
+    if client.user == message.author:
+        return
+
+    split_word = message.content.split(' ')
+    if len(split_word) < 3:
+        await message.channel.send('もう一度試してみてもふ！　半角スペース使ってるか確認してもふ')
+        return
+
+    name = split_word[2]
+    if name not in registered_dict.keys():
+        await message.channel.send('その人はもういないもふ')
+        return
+
+    await message.channel.send(f'{name}さんが嚙まれてしまったもふ…')
+    registered_dict.pop(name)
+    await display_survivor(message)
 
 
 client.run('')  # ''の間にトークンを記載
