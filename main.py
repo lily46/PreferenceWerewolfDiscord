@@ -164,5 +164,6 @@ async def bite_person(message):
     registered_dict.pop(name)
     await display_survivor(message)
 
-
-client.run('')  # ''の間にトークンを記載
+with open('token.txt', mode='r') as f:
+    token_str = f.read()
+client.run(token_str)  # token.txtにトークンを書いておく
