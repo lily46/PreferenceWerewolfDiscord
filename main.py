@@ -1,7 +1,6 @@
-import time
+import random
 
 import discord
-import random
 
 registered_dict = {}
 client = discord.Client()
