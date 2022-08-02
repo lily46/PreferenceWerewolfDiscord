@@ -3,6 +3,7 @@ import random
 import discord
 
 registered_dict = {}
+registered_dict_backup = {}
 client = discord.Client()
 wolf = None
 
@@ -17,7 +18,7 @@ async def on_ready():
 
 @client.event
 async def on_message(message):
-    global is_run, registered_dict, wolf
+    global is_run, registered_dict, wolf, registered_dict_backup
     # Start Game
     if message.content.startswith('/game /start'):
         registered_dict = dict()
@@ -26,6 +27,7 @@ async def on_message(message):
 
     # start inference
     if message.content.startswith('/game /discuss'):
+        registered_dict_backup = registered_dict.copy()
         wolf = random.choice(list(registered_dict.items()))
         word = wolf[1]
         people_str = ' '.join(registered_dict.keys())
@@ -57,6 +59,13 @@ async def on_message(message):
             await message.channel.send(f'答え：{wolf}')
         else:
             await message.channel.send('手順が間違っていたみたい，やり直してもふ！(discussされないかももふ)')
+
+    # Open Word
+    if message.content.startswith('/game /open'):
+        author_name = message.author.name
+        if author_name in registered_dict_backup:
+            word = registered_dict[author_name]
+            await message.channel.send(f'{author_name}さんのお題は、{word}もふ！')
 
     # Register Word
     if message.content.startswith('/game /register '):
