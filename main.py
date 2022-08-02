@@ -66,6 +66,8 @@ async def on_message(message):
         if author_name in registered_dict_backup:
             word = registered_dict_backup[author_name]
             await message.channel.send(f'{author_name}さんのお題は、{word}もふ！')
+        else:
+            await message.channel.send('知らない名前もふ。discussしたかも確認してほしいもふ！')
 
     # Register Word
     if message.content.startswith('/game /register '):
