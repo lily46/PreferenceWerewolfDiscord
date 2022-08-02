@@ -64,7 +64,7 @@ async def on_message(message):
     if message.content.startswith('/game /open'):
         author_name = message.author.name
         if author_name in registered_dict_backup:
-            word = registered_dict[author_name]
+            word = registered_dict_backup[author_name]
             await message.channel.send(f'{author_name}さんのお題は、{word}もふ！')
 
     # Register Word
