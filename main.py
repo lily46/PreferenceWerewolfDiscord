@@ -81,6 +81,11 @@ async def on_message(message):
     if message.content.startswith('/game /bite '):
         await bite_person(message)
 
+    if message.content.startswith('/game /theme'):
+        word = wolf[1]
+        people_str = ' '.join(registered_dict.keys())
+        await message.channel.send(f'お題は"{word}"だもふ！みんなで順番にお題について語りながら，誰のお題か当ててもふ！今の生存者は{people_str}もふ')
+
 
 async def register_word(message):
     """
